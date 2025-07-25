@@ -1,0 +1,46 @@
+﻿  소스의 유효성을 검사하는 중
+  소스를 'localhost'(으)로 원격으로 복사하는 중
+  아키텍처의 유효성을 검사하는 중
+  아키텍처의 유효성을 검사하는 중
+  원격 빌드를 시작하는 중
+  소스를 컴파일하는 중:
+  BlockingSocketServer.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(35,33): warning : conversion from ‘ssize_t’ {aka ‘long int’} to ‘int’ may change value [-Wconversion]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(35,33): warning :    35 |                 int nRet = write(nClientIndex_, pPacket_->GetData() + totalSent, pPacket_->GetSize() - totalSent);
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(35,33): warning :       |                            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(125,32): warning : conversion from ‘ssize_t’ {aka ‘long int’} to ‘int’ may change value [-Wconversion]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(125,32): warning :   125 |                 int nRet = read(nClientIndex_, buf, 1024);
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(125,32): warning :       |                            ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(137,53): warning : conversion from ‘std::basic_string_view<char>::size_type’ {aka ‘long unsigned int’} to ‘uint32_t’ {aka ‘unsigned int’} may change value [-Wconversion]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(137,53): warning :   137 |                                 slideBuf.Pop(sv.size());
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\BlockingSocketServer.cpp(137,53): warning :       |                                              ~~~~~~~^~
+  ClientContext.cpp
+  GameServer.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\GameServer.cpp(130,44): warning : conversion from ‘int’ to ‘uint16_t’ {aka ‘short unsigned int’} may change value [-Wconversion]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\GameServer.cpp(130,44): warning :   130 |         Job* pJob = m_JobFactory.CreateJob(nClientIndex_, sv_);
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\GameServer.cpp(130,44): warning :       |                                            ^~~~~~~~~~~~~
+  Job.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\Job.cpp(6,23): warning : conversion from ‘uint32_t’ {aka ‘unsigned int’} to ‘uint16_t’ {aka ‘short unsigned int’} may change value [-Wconversion]
+  JobFactory.cpp
+  main.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(1,9): warning : #pragma once in main file
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(1,9): warning :     1 | #pragma once
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(1,9): warning :       |         ^~~~
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(15,13): warning : unused variable ‘c’ [-Wunused-variable]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(15,13): warning :    15 |         int c = getchar();
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\main.cpp(15,13): warning :       |             ^
+  PacketData.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(92,18): warning : ‘PacketData::m_uCapacity’ will be initialized after [-Wreorder]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(92,18): warning :    92 |         uint32_t m_uCapacity;
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(92,18): warning :       |                  ^~~~~~~~~~~
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(91,18): warning : ‘uint32_t PacketData::m_uSize’ [-Wreorder]
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(91,18): warning :    91 |         uint32_t m_uSize;
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.hpp(91,18): warning :       |                  ^~~~~~~
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\PacketData.cpp(3,1): warning : when initialized here [-Wreorder]
+  SlideBuffer.cpp
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\SlideBuffer.cpp(1,9): warning : #pragma once in main file
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\SlideBuffer.cpp(1,9): warning :     1 | #pragma once
+C:\Users\psyc\source\repos\LinuxTest\LinuxTest\SlideBuffer.cpp(1,9): warning :       |         ^~~~
+  SpinLock.cpp
+  개체를 연결하는 중
+  LinuxTest.vcxproj -> C:\Users\psyc\source\repos\LinuxTest\LinuxTest\bin\x64\Debug\LinuxTest.out
