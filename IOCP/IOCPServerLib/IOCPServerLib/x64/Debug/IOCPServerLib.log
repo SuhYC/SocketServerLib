@@ -1,0 +1,6 @@
+﻿  GameServer.cpp
+C:\Users\psyc\source\repos\IOCPServerLib\IOCPServerLib\JobMemoryPool.hpp(12,7): warning C4624: 'Jobs': 소멸자가 암시적으로 삭제된 것으로 정의되었습니다.
+C:\Users\psyc\source\repos\IOCPServerLib\IOCPServerLib\GameServer.cpp(108,28): warning C4101: 'e' :참조되지 않은 지역 변수입니다.
+  Job.cpp
+  코드를 생성하고 있습니다...
+  IOCPServerLib.vcxproj -> C:\Users\psyc\source\repos\IOCPServerLib\x64\Debug\IOCPServerLib.exe
