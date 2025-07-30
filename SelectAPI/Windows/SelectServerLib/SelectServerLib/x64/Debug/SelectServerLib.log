@@ -1,0 +1,4 @@
+﻿  SelectServer.cpp
+C:\Users\psyc\source\repos\SelectServerLib\SelectServerLib\SelectServer.cpp(329,17): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\psyc\source\repos\SelectServerLib\SelectServerLib\SelectServer.cpp(384,17): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  SelectServerLib.vcxproj -> C:\Users\psyc\source\repos\SelectServerLib\x64\Debug\SelectServerLib.exe
