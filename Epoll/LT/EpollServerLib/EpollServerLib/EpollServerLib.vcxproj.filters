@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="헤더">
+      <UniqueIdentifier>{3ad8f844-a4e6-42ee-b68c-a9dd1cd53b1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스">
+      <UniqueIdentifier>{b08bfb06-4d00-470e-8dfa-1cf00764fe5a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EpollServer.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketData.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientContext.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinLock.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="SlideBuffer.hpp">
+      <Filter>헤더</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServer.hpp" />
+    <ClInclude Include="Job.hpp" />
+    <ClInclude Include="JobFactory.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PacketData.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinLock.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="SlideBuffer.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientContext.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="EpollServer.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="GameServer.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="JobFactory.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+    <ClCompile Include="Job.cpp">
+      <Filter>소스</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
