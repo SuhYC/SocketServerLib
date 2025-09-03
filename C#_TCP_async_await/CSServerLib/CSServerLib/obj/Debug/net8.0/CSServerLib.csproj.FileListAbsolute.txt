@@ -1,0 +1,14 @@
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.AssemblyInfoInputs.cache
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.AssemblyInfo.cs
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.csproj.CoreCompileInputs.cache
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\bin\Debug\net8.0\CSServerLib.exe
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\bin\Debug\net8.0\CSServerLib.deps.json
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\bin\Debug\net8.0\CSServerLib.runtimeconfig.json
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\bin\Debug\net8.0\CSServerLib.dll
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\bin\Debug\net8.0\CSServerLib.pdb
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.dll
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\refint\CSServerLib.dll
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.pdb
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\CSServerLib.genruntimeconfig.cache
+C:\Users\psyc\source\repos\CSServerLib\CSServerLib\obj\Debug\net8.0\ref\CSServerLib.dll
