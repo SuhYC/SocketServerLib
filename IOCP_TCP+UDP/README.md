@@ -1,0 +1,59 @@
+# IOCP Lib. UDP 추가 버전.
+기존 소켓서버 만들기 첫 버전으로 IOCP기반의 서버를 만들었지만 UDP 기능을 추가해보고 싶어서 재작성. <br/>
+다만, UDP는 TCP연결에 의존해서 사용하도록 한다. <br/>
+
+## UDP 로직
+일단 기본적으로 TCP요청으로 ```ReqTokenJob```을 생성해두었다.<br/>
+해당 TCP요청을 통해 클라이언트는 자신의 TCP연결에 맞는 토큰을 발급받을 수 있고,<br/>
+해당 토큰을 UDP요청 헤더에 넣어 해당 요청이 자신임을 식별할 수 있도록 한다.<br/>
+서버는 토큰식별이 된 요청에 대해 UDP IP,Port를 TCP연결객체에 갱신하여 이후 UDP로 응답을 전송해야하는 경우에 사용한다.<br/>
+해당 토큰은 빠른발급과 충돌방지, 최소한의 스푸핑방지를 위해 <br/>
+연결객체의 인덱스를 상위 4바이트, 현재시간기반의 변수를 하위 4바이트로 결합한 8바이트 정수로 사용한다.<br/>
+연결객체의 인덱스로 구분할 수 있기 때문에 다른 연결과 토큰충돌하는 일이 없다.<br/>
+
+## RDB
+odbc를 통해 MSSQL 연동이 가능하게 해두었다. (DB_NAME과 DB_ID, DB_PW는 수정할 것)<br/>
+연결핸들과 구문핸들은 임계영역 없이 수행할 수 있도록 [TLS](https://github.com/SuhYC/Lesson/blob/main/C%2B%2B/Thread_Local_Storage.md)로 작성하였고,<br/>
+해당 핸들 발급/해제는 작업을 처리하는 스레드풀의 워커스레드의 시작과 끝에 작성해두었다.<br/>
+환경핸들은 싱글턴 인스턴스를 호출하는 순간 생성자에서 발급하고, 이후 프로그램이 종료할 때 소멸자에서 해제하게 해두었다.<br/>
+
+## IOCP Scatter/Gather
+TCP패킷에만 적용해두었다. <br/>
+송신버퍼큐는 원형큐의 형태로 구현, ```PacketData*``` 객체를 담아두었다가,<br/>
+송신이 발생할 때마다 ```WSABUF[]```의 형태로 반환. 해당 ```WSABUF```배열을 ```Scatter/Gather```형태로 송신.<br/>
+이후 커널버퍼에 담았다는 완료통지가 오면 해당 바이트만큼 제거.<br/>
+개별 패킷의 사이즈 이상이면 해당 패킷을 패킷풀에 반환하고,<br/>
+해당 패킷의 일부만 전송되었다면 해당 패킷에서 해당 부분을 Pop.<br/>
+
+## ThreadPool
+시간기반 우선순위큐와, 일반 락프리큐 기반으로 각각 작성해두었다.<br/>
+일반 락프리큐는 락이 필요 없기 때문에 ```std::atomic_wait```를 활용하여 스레드를 깨울 수 있도록 작성.<br/>
+사용할지는 모르겠지만 실시간으로 스레드의 갯수를 조정할 수 있도록 작성하였다.<br/>
+시간기반 우선순위큐는 top에 있는 작업의 수행시간이 되었을 때 스레드를 깨울 수 있도록 ```std::condition_variable```을 사용.<br/>
+어차피 ```std::condition_varible```을 사용하는 경우 락을 사용하게 되므로<br/>
+```Concurrency::concurrent_priority_queue```는 사용하지 않고 일반 ```std::priority_queue```를 사용.<br/>
+
+## MemoryPool
+```JobFactory```에서 사용.<br/>
+다양한 크기를 갖는 객체들을 할당할 수 있는 메모리블록을 ```::operator new```를 통해 미리 할당해두었다가,<br/>
+동적할당이 필요할 때, 해당 풀에서 메모리블록을 발급받은 후,<br/>
+메모리블록에 ```Placement New```로 객체를 생성한다.<br/>
+이 과정에서 OS에 동적할당을 요청하는 동작이 제거되었으므로 해당 부분에서 오버헤드 감소 효과를 볼 수 있음.<br/>
+사용이 끝난 이후 재사용을 위해 소멸자를 호출한 뒤 메모리블록을 풀에 반환한다. 이 부분도 OS요청이 없어 오버헤드 감소.<br/>
+```MemoryPool```이 소멸할 때 ```::operator delete```를 통해 메모리블록을 해제한다.<br/>
+
+## SpinLock
+```lock```, ```try_lock```, ```unlock```의 기능을 수행할 수 있다.<br/>
+```try_lock```은 1회 락습득을 시도한다. 반환값은 락 습득 여부다.<br/>
+```lock```은 busy하게 CPU를 점유하며 락습득 시도를 반복하고, 락을 습득하면 반환된다.<br/>
+```lock```은 반복수행하기 때문에 ```compare_exchange_weak```를 통해 수행.<br/>
+```try_lock```은 1회 시도하기 때문에 ```compare_exchange_strong```를 통해 수행. (weak를 쓰면 [spurious failure](https://github.com/SuhYC/Lesson/blob/main/Operating_System/Spurious_Failure.md#spurious-failure)를 방지할 수 없다.)<br/>
+```unlock```은 습득한 락을 해제한다. (단 이건 락의 보유 여부를 확인하지 않는다. 주의.)<br/>
+
+#### SpinLockGuard<br/>
+RAII를 적용하여 SpinLockGuard를 사용할 수도 있다. std::lock_guard처럼 사용할 수 있으며,<br/>
+try_lock 옵션을 적용하여 사용할 수도 있다. (이 경우 owns_lock을 조회할 것.)<br/>
+try_lock을 통해 생성한 SpinLockGuard는 소멸자에서 본인이 락을 가지고 있는지 확인하고 해제한다. <br/>
+(락습득에 실패한 경우는 해제하지 않는 셈.)<br/>
+try_lock으로 SpinLockGuard를 사용하는 예시는 GameServer::HandleReq에서 확인할 수 있다.<br/>
+RAII패턴으로 사용하되, 락 습득을 기다리지 않고 반환한 뒤 락 습득에 실패했다면 다른 스레드가 처리할 것이므로 작업 종료.<br/>
