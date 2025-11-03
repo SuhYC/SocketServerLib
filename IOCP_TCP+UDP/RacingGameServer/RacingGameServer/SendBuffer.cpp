@@ -65,6 +65,9 @@ bool SendBuffer::Allocate(uint32_t capacity_)
 	m_Data = pNewData;
 	m_Capacity = capacity_;
 
+	m_ReadOffset = 0;
+	m_WriteOffset = 0;
+
 	return true;
 }
 
